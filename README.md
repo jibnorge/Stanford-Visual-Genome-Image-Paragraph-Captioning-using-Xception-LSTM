@@ -19,6 +19,45 @@ Each image is associated with a paragraph caption that acts as a training label.
 
 ---
 
+## 🛠️ Workflow
+```mermaid
+flowchart LR
+    %% Optimized for black/dark background
+    classDef dataset    fill:#0f2b4a, stroke:#4da6ff, stroke-width:2px, color:#d0e7ff
+    classDef preprocess fill:#1a2533, stroke:#8b5cf6, stroke-width:2px, color:#e0d7ff
+    classDef feature    fill:#0f2b22, stroke:#10b981, stroke-width:2px, color:#d1fae5
+    classDef model      fill:#172554, stroke:#60a5fa, stroke-width:2.5px, color:#bfdbfe
+    classDef caption    fill:#2b1212, stroke:#f87171, stroke-width:2px, color:#fecaca
+
+    A[Dataset<br>~20k images + paragraph captions<br>Visual Genome subset] --> B[Preprocess]
+
+    subgraph Preprocess
+        B --> C1[Images → resize 299×299]
+        B --> C2[Text → clean, lemmatize,<br>add <START>/<END>, tokenize]
+    end
+
+    C1 --> D[Xception<br>Feature Extraction<br>→ 2048-dim vectors]
+    C2 --> E[GloVe Embeddings<br>+ Token Sequences]
+
+    D --> F[Model]
+    E --> F
+
+    subgraph Model
+        F[Concatenate<br>Image features + LSTM output<br>→ Dense → Softmax]
+    end
+
+    F --> G[Train<br>word-by-word prediction<br>Adam + Categorical CE]
+
+    G --> H[Inference<br>Generate paragraph caption<br>beam/greedy from <START> → <END>]
+
+    class A dataset
+    class B,C1,C2 preprocess
+    class D feature
+    class E preprocess
+    class F,G model
+    class H caption
+```
+
 ## 🧹 Step 1: Data Preprocessing
 
 ### 1.1 Load and Organize
