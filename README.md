@@ -1,4 +1,4 @@
-# 🖼️ Image Paragraph Captioning using Xception and LSTM
+# Image Paragraph Captioning using Xception and LSTM
 
 ![Project Image](assets/cover.jpg?raw=true)
 
@@ -11,7 +11,7 @@ The goal of this project is to build a deep learning model capable of generating
 
 ---
 
-## 📊 Dataset
+## Dataset
 
 This project uses [Stanford Image Paragraph Captioning Dataset
 ](https://www.kaggle.com/datasets/vakadanaveen/stanford-image-paragraph-captioning-dataset) a subset of the **Visual Genome dataset**, which contains around **20,000 images**, each labeled with a **descriptive paragraph**. For training purposes, we use a subset of **5,000 image-paragraph pairs**.
@@ -20,7 +20,7 @@ Each image is associated with a paragraph caption that acts as a training label.
 
 ---
 
-## 🛠️ Workflow
+## Workflow
 ```mermaid
 flowchart LR
     %% Optimized for black/dark background
@@ -59,7 +59,7 @@ flowchart LR
     class H caption
 ```
 
-## 🧹 Step 1: Data Preprocessing
+## Step 1: Data Preprocessing
 
 ### 1.1 Load and Organize
 
@@ -74,7 +74,7 @@ flowchart LR
 
 ---
 
-## 🧠 Step 2: Feature Extraction using Xception
+## Step 2: Feature Extraction using Xception
 
 ### 2.1 Load Pretrained Model
 
@@ -88,7 +88,7 @@ flowchart LR
 
 ---
 
-## 📝 Step 3: Text Preprocessing
+## Step 3: Text Preprocessing
 
 ### 3.1 Clean and Lemmatize
 
@@ -140,7 +140,7 @@ def caption_preprocessing(captions):
 
 ---
 
-## 🔠 Step 4: Tokenization and Embeddings
+## Step 4: Tokenization and Embeddings
 
 ### 4.1 Tokenize Captions
 
@@ -157,7 +157,7 @@ def caption_preprocessing(captions):
 
 ---
 
-## 📦 Step 5: Dataset Preparation
+## Step 5: Dataset Preparation
 
 ### 5.1 Data Generator
 
@@ -193,7 +193,7 @@ def data_generator(descriptions, features, tokenizer, max_length, vocab_size):
 
 ---
 
-## 🧩 Step 6: Model Architecture
+## Step 6: Model Architecture
 
 ### 6.1 Dual Input Model
 
@@ -237,7 +237,7 @@ concat_model = define_model(vocab_size, caption_max_length, embedding_matrix)
 
 ---
 
-## 🏋️ Step 7: Model Training
+## Step 7: Model Training
 
 - Trained the model using the custom data generator.
 - Used Keras `ModelCheckpoint`, although saving best model was skipped due to `val_loss` absence.
@@ -245,7 +245,7 @@ concat_model = define_model(vocab_size, caption_max_length, embedding_matrix)
 
 ---
 
-## 🧪 Step 8: Inference
+## Step 8: Inference
 
 ### 8.1 Caption Generator
 
@@ -293,7 +293,7 @@ While slightly repetitive, the generated output shows the model’s ability to c
 
 ---
 
-## ✅ Summary
+## Summary
 
 This project builds a **deep learning-based paragraph captioning system** by combining:
 
